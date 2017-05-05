@@ -6,24 +6,31 @@ english = {'e': 12.70, 't': 9.06, 'a': 8.17, 'o': 7.51, 'i': 6.97, 'n': 6.75, 's
 
 def freq(s):
     f = {chr(x).lower() : s.count(x) / float(len(s)) for x in s}
-    res = sum([abs(english[k] - v) for k,v  in f.iteritems() if k in english])
-    # print res, ''.join(map(chr, s))
+    res = sum([abs(english[k] - v) for k,v in f.iteritems() if k in english])
     return res
 
-def func(s):
-    s = map(lambda x: (ord(x)), s.decode('hex'))
+# Make refactoring
+def choose(l):
     MAX = 0
+    COUNT = int(english['e'] * len(l[0])) + 1
     val = []
-    COUNT = english['e'] * len(s) + 1
-    for c in xrange(256):
-        xord = map(lambda x: x ^ c, s)
+
+    for xord in l:
         if all(chr(c).lower() in printable for c in xord):
             c_i = sum([1 for x in xord if chr(x).lower() not in english.keys()])
             if MAX < freq(xord) and c_i < COUNT:
                 MAX = freq(xord)
                 val = xord
                 COUNT = c_i
-    return ''.join(map(chr, val))
+
+    return val
+
+def func(s):
+    s = map(lambda x: (ord(x)), s.decode('hex'))
+    l = []
+    for c in xrange(256):
+        l.append(map(lambda x: x ^ c, s))
+    return ''.join(map(chr, choose(l)))
 
 if __name__ == '__main__':
     print func(sys.argv[1])
