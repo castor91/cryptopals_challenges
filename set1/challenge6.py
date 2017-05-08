@@ -13,6 +13,7 @@ def guess_KEYSIZE(c, length=1, average=1): #TODO average
     return sorted(KEYSIZE_SORTED, key=lambda x: x[1])[:length]
 
 if __name__ == '__main__':
+    KEY = ''
     f = open('6.txt', 'r')
     text_coded = ''.join(map(lambda x: x.replace('\n', ''), f.readlines()))
     f.close()
@@ -28,10 +29,13 @@ if __name__ == '__main__':
             l = []
             for c in xrange(256):
                 l.append(map(lambda x: x ^ c, t))
-            result.append(challenge3.choose(l))
+            solution, key = challenge3.choose(l)
+            result.append(solution)
+            KEY += chr(key) 
         result = filter(None, result)
         if len(result) == size:
             print 'successful!\n{}'.format(''.join([''.join(map(lambda y: chr(y), x)) for x in zip(*result)]))
+            print KEY
             break
         else:
             print 'fail'

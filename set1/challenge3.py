@@ -23,7 +23,7 @@ def choose(l):
                 val = xord
                 COUNT = c_i
 
-    return val
+    return val, l.index(val)
 
 def func(s):
     s = map(lambda x: (ord(x)), s.decode('hex'))
