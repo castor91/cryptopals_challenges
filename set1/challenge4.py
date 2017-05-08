@@ -24,5 +24,4 @@ if __name__ == '__main__':
         result.append(func(s.replace('\n','')))
     f.close()
     result = filter(None, result)
-    print result
-    print ''.join(map(chr, choose(result)))
+    print ''.join(map(chr, choose(result)[0]))

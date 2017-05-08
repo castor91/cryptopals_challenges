@@ -30,7 +30,7 @@ def func(s):
     l = []
     for c in xrange(256):
         l.append(map(lambda x: x ^ c, s))
-    return ''.join(map(chr, choose(l)))
+    return ''.join(map(chr, choose(l)[0]))
 
 if __name__ == '__main__':
     print func(sys.argv[1])
